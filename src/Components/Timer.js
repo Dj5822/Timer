@@ -20,6 +20,9 @@ class Timer extends React.Component {
     if (this.state.breakLength + amount <= 0) {
       newBreakLength = 1;
     }
+    else if (this.state.breakLength + amount > 60) {
+      newBreakLength = 60;
+    }
     else {
       newBreakLength = this.state.breakLength + amount;
     }
@@ -33,6 +36,9 @@ class Timer extends React.Component {
     let newSessionLength = 0;
     if (this.state.sessionLength + amount <= 0) {
       newSessionLength = 1;
+    }
+    else if (this.state.sessionLength + amount > 60) {
+      newSessionLength = 60;
     }
     else {
       newSessionLength = this.state.sessionLength + amount;
