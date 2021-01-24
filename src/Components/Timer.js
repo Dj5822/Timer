@@ -18,6 +18,8 @@ class Timer extends React.Component {
         <TimespanPanel type="break" length={this.state.breakLength} ></TimespanPanel>
         <TimespanPanel type="session" length={this.state.sessionLength} ></TimespanPanel>
         <TimerPanel />
+        <button id="start-stop">start/stop</button>
+        <button id="reset">reset</button>
       </div>
     );
   }
