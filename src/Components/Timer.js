@@ -55,7 +55,9 @@ class Timer extends React.Component {
   reset() {
     this.setState({
       breakLength: 5,
-      sessionLength: 25
+      sessionLength: 25,
+      min: 25,
+      sec: 0
     });
   }
 
