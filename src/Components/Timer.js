@@ -8,7 +8,9 @@ class Timer extends React.Component {
 
     this.state = {
       breakLength: 5,
-      sessionLength: 25
+      sessionLength: 25,
+      min: 25,
+      sec: 0
     };
     this.reset = this.reset.bind(this);
     this.changeBreak = this.changeBreak.bind(this);
@@ -45,7 +47,8 @@ class Timer extends React.Component {
     }
 
     this.setState({
-      sessionLength: newSessionLength
+      sessionLength: newSessionLength,
+      min: newSessionLength
     })
   }
 
@@ -63,7 +66,7 @@ class Timer extends React.Component {
         changeLength={this.changeBreak} />
         <TimespanPanel type="session" length={this.state.sessionLength}
         changeLength={this.changeSession} />
-        <TimerPanel />
+        <TimerPanel minutes={this.state.min} seconds={this.state.sec} />
         <button id="start-stop">start/stop</button>
         <button id="reset" onClick={this.reset}>reset</button>
       </div>
