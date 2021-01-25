@@ -15,6 +15,7 @@ class Timer extends React.Component {
     this.reset = this.reset.bind(this);
     this.changeBreak = this.changeBreak.bind(this);
     this.changeSession = this.changeSession.bind(this);
+    this.startCountdown = this.startCountdown.bind(this);
   }
 
   changeBreak(amount) {
@@ -61,6 +62,22 @@ class Timer extends React.Component {
     });
   }
 
+  startCountdown() {
+    let session = new Date(this.state.min*60*1000 + this.state.sec*1000);
+    let startTime = new Date();
+
+    setInterval(function() {
+      let currentTime = new Date();
+      let timeLeft = new Date(session - (currentTime - startTime));
+
+      this.setState((state) => ({
+        min: timeLeft.getMinutes(),
+        sec: timeLeft.getSeconds()
+      }));
+    }.bind(this),
+    500);
+  }
+
   render() {
     return (
       <div>
@@ -69,7 +86,7 @@ class Timer extends React.Component {
         <TimespanPanel type="session" length={this.state.sessionLength}
         changeLength={this.changeSession} />
         <TimerPanel minutes={this.state.min} seconds={this.state.sec} />
-        <button id="start-stop">start/stop</button>
+        <button id="start-stop" onClick={this.startCountdown}>start/stop</button>
         <button id="reset" onClick={this.reset}>reset</button>
       </div>
     );
