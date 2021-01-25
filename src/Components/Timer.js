@@ -2,6 +2,8 @@ import React from 'react';
 import TimespanPanel from './TimespanPanel.js';
 import TimerPanel from './TimerPanel.js';
 
+var countdown;
+
 class Timer extends React.Component {
   constructor(props) {
     super(props);
@@ -10,12 +12,14 @@ class Timer extends React.Component {
       breakLength: 5,
       sessionLength: 25,
       min: 25,
-      sec: 0
+      sec: 0,
+      countdownStarted: false
     };
     this.reset = this.reset.bind(this);
     this.changeBreak = this.changeBreak.bind(this);
     this.changeSession = this.changeSession.bind(this);
     this.startCountdown = this.startCountdown.bind(this);
+    this.startStopPressed = this.startStopPressed.bind(this);
   }
 
   changeBreak(amount) {
@@ -54,11 +58,13 @@ class Timer extends React.Component {
   }
 
   reset() {
+    this.stopCountdown();
     this.setState({
       breakLength: 5,
       sessionLength: 25,
       min: 25,
-      sec: 0
+      sec: 0,
+      countdownStarted: false
     });
   }
 
@@ -66,7 +72,7 @@ class Timer extends React.Component {
     let session = new Date(this.state.min*60*1000 + this.state.sec*1000);
     let startTime = new Date();
 
-    setInterval(function() {
+    countdown = setInterval(function() {
       let currentTime = new Date();
       let timeLeft = new Date(session - (currentTime - startTime));
 
@@ -78,6 +84,23 @@ class Timer extends React.Component {
     500);
   }
 
+  stopCountdown() {
+    if (countdown !== undefined) {
+      clearInterval(countdown);
+    }
+  }
+
+  startStopPressed() {
+    if (this.state.countdownStarted === false){
+      this.setState({countdownStarted: true});
+      this.startCountdown();
+    }
+    else {
+      this.setState({countdownStarted: false});
+      this.stopCountdown();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -86,7 +109,7 @@ class Timer extends React.Component {
         <TimespanPanel type="session" length={this.state.sessionLength}
         changeLength={this.changeSession} />
         <TimerPanel minutes={this.state.min} seconds={this.state.sec} />
-        <button id="start-stop" onClick={this.startCountdown}>start/stop</button>
+        <button id="start-stop" onClick={this.startStopPressed}>start/stop</button>
         <button id="reset" onClick={this.reset}>reset</button>
       </div>
     );
