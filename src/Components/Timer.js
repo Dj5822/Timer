@@ -9,6 +9,7 @@ var defaultState = {
   sessionLength: 25,
   min: 25,
   sec: 0,
+  ms: 0,
   countdownStarted: false,
   status: STATUS[0]
 };
@@ -66,9 +67,9 @@ class Timer extends React.Component {
   }
 
   startCountdown() {
-    let session = new Date(this.state.min*60*1000 + this.state.sec*1000);
+    let session = new Date(this.state.min*60*1000 + this.state.sec*1000 + this.state.ms);
     let startTime = new Date();
-    let currentTime = new Date();
+    let currentTime = startTime;
     let timeLeft = new Date(session - (currentTime - startTime));
 
     countdown = setInterval(function() {
