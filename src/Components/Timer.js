@@ -3,6 +3,7 @@ import TimespanPanel from './TimespanPanel.js';
 import TimerPanel from './TimerPanel.js';
 
 var countdown;
+var audioElement;
 const STATUS = ["session", "break"];
 var defaultState = {
   breakLength: 5,
@@ -64,6 +65,10 @@ class Timer extends React.Component {
   reset() {
     this.stopCountdown();
     this.setState(defaultState);
+    if (audioElement !== undefined) {
+      audioElement.pause();
+      audioElement.load();
+    }
   }
 
   startCountdown() {
@@ -75,6 +80,7 @@ class Timer extends React.Component {
     countdown = setInterval(function() {
       // Reset timer when it timer reaches 0.
       if (timeLeft.getMinutes() === 0 && timeLeft.getSeconds() === 0){
+        this.playSound();
         if (this.state.status === STATUS[0]){
           this.setState(state => ({
             min: state.breakLength,
@@ -111,6 +117,12 @@ class Timer extends React.Component {
     }
   }
 
+  playSound() {
+    console.log("sound played");
+    audioElement = document.getElementById("beep");
+    audioElement.play();
+  }
+
   startStopPressed() {
     if (this.state.countdownStarted === false){
       this.setState({countdownStarted: true});
@@ -132,6 +144,9 @@ class Timer extends React.Component {
         <TimerPanel status={this.state.status} minutes={this.state.min} seconds={this.state.sec} />
         <button id="start_stop" onClick={this.startStopPressed}>start/stop</button>
         <button id="reset" onClick={this.reset}>reset</button>
+        <audio id="beep" className="clip">
+          <source type="audio/mp3" src="../../Audio/sound.mp3" />
+        </audio>
       </div>
     );
   }
