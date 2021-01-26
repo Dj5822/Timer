@@ -133,7 +133,7 @@ class Timer extends React.Component {
         <TimespanPanel type="session" length={this.state.sessionLength}
         changeLength={this.changeSession} />
         <TimerPanel status={this.state.status} minutes={this.state.min} seconds={this.state.sec} />
-        <button id="start-stop" onClick={this.startStopPressed}>start/stop</button>
+        <button id="start_stop" onClick={this.startStopPressed}>start/stop</button>
         <button id="reset" onClick={this.reset}>reset</button>
       </div>
     );

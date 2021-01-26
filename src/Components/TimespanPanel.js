@@ -20,9 +20,9 @@ class TimespanPanel extends React.Component {
     return (
       <div>
         <label id={this.props.type+"-label"} >{this.props.type+" length"}</label>
-        <button id={this.props.type+"-decrement"} onClick={this.increment} >+</button>
+        <button id={this.props.type+"-decrement"} onClick={this.decrement} >-</button>
         <label id={this.props.type+"-length"}>{this.props.length}</label>
-        <button id={this.props.type+"-increment"} onClick={this.decrement} >-</button>
+        <button id={this.props.type+"-increment"} onClick={this.increment} >+</button>
       </div>
     );
   }
