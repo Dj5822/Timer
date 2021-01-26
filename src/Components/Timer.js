@@ -4,19 +4,20 @@ import TimerPanel from './TimerPanel.js';
 
 var countdown;
 const STATUS = ["session", "break"];
+var defaultState = {
+  breakLength: 5,
+  sessionLength: 25,
+  min: 25,
+  sec: 0,
+  countdownStarted: false,
+  status: STATUS[0]
+};
 
 class Timer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      breakLength: 5,
-      sessionLength: 25,
-      min: 25,
-      sec: 0,
-      countdownStarted: false,
-      status: STATUS[0]
-    };
+    this.state = defaultState;
     this.reset = this.reset.bind(this);
     this.changeBreak = this.changeBreak.bind(this);
     this.changeSession = this.changeSession.bind(this);
@@ -61,32 +62,17 @@ class Timer extends React.Component {
 
   reset() {
     this.stopCountdown();
-    this.setState({
-      breakLength: 5,
-      sessionLength: 25,
-      min: 25,
-      sec: 0,
-      countdownStarted: false,
-      status: STATUS[0]
-    });
+    this.setState(defaultState);
   }
 
   startCountdown() {
     let session = new Date(this.state.min*60*1000 + this.state.sec*1000);
     let startTime = new Date();
+    let currentTime = new Date();
+    let timeLeft = new Date(session - (currentTime - startTime));
 
     countdown = setInterval(function() {
-      let currentTime = new Date();
-      let timeLeft = new Date(session - (currentTime - startTime));
-
-      this.setState((state) => ({
-        min: timeLeft.getMinutes(),
-        sec: timeLeft.getSeconds()
-      }));
-
-      /*
-        Reset timer.
-      */
+      // Reset timer when it timer reaches 0.
       if (timeLeft.getMinutes() === 0 && timeLeft.getSeconds() === 0){
         if (this.state.status === STATUS[0]){
           this.setState(state => ({
@@ -104,8 +90,18 @@ class Timer extends React.Component {
         }
         startTime = new Date();
       }
+
+      // Get the amount of time left.
+      currentTime = new Date();
+      timeLeft = new Date(session - (currentTime - startTime));
+
+      // Update state.
+      this.setState((state) => ({
+        min: timeLeft.getMinutes(),
+        sec: timeLeft.getSeconds()
+      }));
     }.bind(this),
-    500);
+    100);
   }
 
   stopCountdown() {
