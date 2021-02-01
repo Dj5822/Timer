@@ -150,7 +150,7 @@ class Timer extends React.Component {
             changeLength={this.changeSession} />
           </div>
           <TimerPanel status={this.state.status} minutes={this.state.min} seconds={this.state.sec} />
-          <div id="button-container">
+          <div id="button-container" class="sub-container">
             <button id="start_stop" onClick={this.startStopPressed}>start/stop</button>
             <button id="reset" onClick={this.reset}>reset</button>
           </div>

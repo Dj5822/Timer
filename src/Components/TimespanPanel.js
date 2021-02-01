@@ -19,7 +19,7 @@ class TimespanPanel extends React.Component {
 
   render() {
     return (
-      <div id="timespan-panel">
+      <div id="timespan-panel" class="sub-container">
         <label id={this.props.type+"-label"} >{this.props.type+" length"}</label>
         <div id="time-adjustor">
           <button id={this.props.type+"-decrement"} onClick={this.decrement} >-</button>

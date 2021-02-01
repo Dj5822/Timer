@@ -4,7 +4,7 @@ import './Style.scss';
 class TimerPanel extends React.Component {
   render() {
     return (
-      <div id="timer-panel">
+      <div id="timer-container" class="sub-container">
         <label id="timer-label">{this.props.status}</label>
         <label id="time-left">
         {this.props.minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}
