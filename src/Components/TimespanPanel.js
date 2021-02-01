@@ -18,13 +18,14 @@ class TimespanPanel extends React.Component {
   }
 
   render() {
+    var type = `${this.props.type.charAt(0).toUpperCase()}${this.props.type.slice(1)}`;
     return (
       <div id="timespan-panel" class="sub-container">
-        <label id={this.props.type+"-label"} >{this.props.type+" length"}</label>
+        <label id={this.props.type+"-label"} >{`${type} Length`}</label>
         <div id="time-adjustor">
-          <button id={this.props.type+"-decrement"} onClick={this.decrement} >-</button>
+          <button id={this.props.type+"-decrement"} class="square-button" onClick={this.decrement} >-</button>
           <label id={this.props.type+"-length"}>{this.props.length}</label>
-          <button id={this.props.type+"-increment"} onClick={this.increment} >+</button>
+          <button id={this.props.type+"-increment"} class="square-button" onClick={this.increment} >+</button>
         </div>
       </div>
     );
