@@ -1,6 +1,7 @@
 import React from 'react';
 import TimespanPanel from './TimespanPanel.js';
 import TimerPanel from './TimerPanel.js';
+import './Style.scss';
 
 var countdown;
 var audioElement;
@@ -121,6 +122,10 @@ class Timer extends React.Component {
     console.log("sound played");
     audioElement = document.getElementById("beep");
     audioElement.play();
+    setTimeout(function () {
+      audioElement.pause();
+      audioElement.load();
+    }, 3500);
   }
 
   startStopPressed() {
@@ -136,17 +141,23 @@ class Timer extends React.Component {
 
   render() {
     return (
-      <div>
-        <TimespanPanel type="break" length={this.state.breakLength}
-        changeLength={this.changeBreak} />
-        <TimespanPanel type="session" length={this.state.sessionLength}
-        changeLength={this.changeSession} />
-        <TimerPanel status={this.state.status} minutes={this.state.min} seconds={this.state.sec} />
-        <button id="start_stop" onClick={this.startStopPressed}>start/stop</button>
-        <button id="reset" onClick={this.reset}>reset</button>
-        <audio id="beep" className="clip">
-          <source type="audio/mp3" src="../../Audio/sound.mp3" />
-        </audio>
+      <div id="background">
+        <div id="container">
+          <div id="timespan-container">
+            <TimespanPanel type="break" length={this.state.breakLength}
+            changeLength={this.changeBreak} />
+            <TimespanPanel type="session" length={this.state.sessionLength}
+            changeLength={this.changeSession} />
+          </div>
+          <TimerPanel status={this.state.status} minutes={this.state.min} seconds={this.state.sec} />
+          <div id="button-container">
+            <button id="start_stop" onClick={this.startStopPressed}>start/stop</button>
+            <button id="reset" onClick={this.reset}>reset</button>
+          </div>
+          <audio id="beep" className="clip">
+            <source type="audio/mp3" src="../../Audio/sound.mp3" />
+          </audio>
+        </div>
       </div>
     );
   }

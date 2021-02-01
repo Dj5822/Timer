@@ -1,4 +1,5 @@
 import React from 'react';
+import './Style.scss';
 
 class TimespanPanel extends React.Component {
 
@@ -18,11 +19,13 @@ class TimespanPanel extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="timespan-panel">
         <label id={this.props.type+"-label"} >{this.props.type+" length"}</label>
-        <button id={this.props.type+"-decrement"} onClick={this.decrement} >-</button>
-        <label id={this.props.type+"-length"}>{this.props.length}</label>
-        <button id={this.props.type+"-increment"} onClick={this.increment} >+</button>
+        <div id="time-adjustor">
+          <button id={this.props.type+"-decrement"} onClick={this.decrement} >-</button>
+          <label id={this.props.type+"-length"}>{this.props.length}</label>
+          <button id={this.props.type+"-increment"} onClick={this.increment} >+</button>
+        </div>
       </div>
     );
   }
